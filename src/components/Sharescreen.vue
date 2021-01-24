@@ -20,7 +20,7 @@ export default {
     }
   },
   mounted() {
-    this.wsConnection = new WebSocket('ws://whiteboard-server-uc.herokuapp.com', 'json');
+    this.wsConnection = new WebSocket('wss://whiteboard-server-uc.herokuapp.com', 'json');
     this.wsConnection.onopen = (e) => {
         console.log(`wsConnection open to 127.0.0.1:8081`, e);
         };
