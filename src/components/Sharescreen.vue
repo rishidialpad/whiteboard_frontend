@@ -2,14 +2,19 @@
     <div>
         <div class="frame">
         </div>
-        <button v-if="isWhiteboardOpen == false" v-on:click="openWhiteboard" > Miro Whiteboard</button>
-        <button v-else v-on:click="closeWhiteboard">Stop Sharing</button>
-        
+        <!-- <button v-if="isWhiteboardOpen == false" v-on:click="openWhiteboard" ><i class="fas fa-desktop fa-3x"></i></button>
+        <button v-else v-on:click="closeWhiteboard"><i class="fas fa-stop-circle"></i></button> -->
+        <b-dropdown v-if="isWhiteboardOpen == false" id="dropdown-offset" offset="25" text="Share Screen" class="m-2">
+          <b-dropdown-item v-on:click="openWhiteboard">Open Miro whiteboard</b-dropdown-item>
+          <b-dropdown-item href="#" disabled>Share Desktop Screen</b-dropdown-item>
+        </b-dropdown>
+        <button v-else v-on:click="closeWhiteboard"><i class="fas fa-stop-circle fa-3x"></i></button>
         <!-- <textarea class="results"></textarea> -->
     </div>
 </template>
 
 <script src="https://miro.com/app/static/boardsPicker.1.0.js"></script>
+
 <script>
 export default {
   name: 'Sharescreen',
@@ -112,6 +117,13 @@ export default {
     height : 83vh;
     margin : .5em .5em .5em .5em;
     
+}
+button{
+  width:50px;
+  height:50px;
+  padding: 0px;
+  border: 0rem;
+  background-color: white;
 }
 
 h3 {
