@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted() {
-    this.wsConnection = new WebSocket('wss://whiteboard-server-uc.herokuapp.com', 'json');
+    this.wsConnection = new WebSocket('wss://whiteboard-server1.herokuapp.com', 'json');
     this.wsConnection.onopen = (e) => {
         console.log(`wsConnection open to 127.0.0.1:8081`, e);
         };
@@ -101,8 +101,21 @@ export default {
         },
       getTokenFromServer : function(){
         return new Promise(function(res,err){
-            res("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIzMDc0NDU3MzUzMDU5Mjg2ODk3IiwiaWF0IjoxNjEwNjAwNTI2LCJleHAiOjE2NDIxMzY1MjYsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJHaXZlbk5hbWUiOiJKb2hubnkiLCJTdXJuYW1lIjoiUm9ja2V0IiwiRW1haWwiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwiUm9sZSI6WyJNYW5hZ2VyIiwiUHJvamVjdCBBZG1pbmlzdHJhdG9yIl19.p6tLuFAD3KY9ADgAZzLpzdJraWQ2XvZxYzhu7_iwtTE");
-            err("some thing went wrong");
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+          };
+
+          fetch("https://whiteboard-server1.herokuapp.com/getToken", requestOptions)
+            .then(response => response.text())
+            .then(result => res(result.token))
+            .catch(error => err(error));
+            
+            
         });
       },
   }
