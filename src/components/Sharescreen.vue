@@ -110,7 +110,7 @@ export default {
             redirect: 'follow'
           };
 
-          fetch("https://whiteboard-server1.herokuapp.com/getToken", requestOptions)
+          fetch("https://whiteboard-frontend-poc.herokuapp.com/getToken", requestOptions)
             .then(response => response.text())
             .then(result => res(result.token))
             .catch(error => err(error));
