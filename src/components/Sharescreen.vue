@@ -112,7 +112,7 @@ export default {
 
           fetch("https://whiteboard-frontend-poc.herokuapp.com/getToken", requestOptions)
             .then(response => response.text())
-            .then(result => res(JSON.parse(result).token))
+            .then(result => res((JSON.parse(result)).token))
             .catch(error => err(error));
             
             
