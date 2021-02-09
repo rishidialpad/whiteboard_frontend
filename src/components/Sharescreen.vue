@@ -23,22 +23,23 @@ export default {
     return {
         wsConnection : Object,
         whiteboardData:{
-          type:"enable",
+          type:"whiteboard",
           enable:false,
           value:""
         }
     }
   },
   mounted() {
-    this.wsConnection = new WebSocket('wss://whiteboard-server1.herokuapp.com', 'json');
+    this.wsConnection = new WebSocket('wss://whiteboard-server-poc.herokuapp.com', 'json');
     this.wsConnection.onopen = (e) => {
-        console.log(`wsConnection open to 127.0.0.1:8081`, e);
+        console.log(`https://whiteboard-server-poc.herokuapp.com/`, e);
         };
     this.wsConnection.onerror = (e) => {
         console.error(`wsConnection error `, e);
         };
     this.wsConnection.onmessage = (e) => {
         let data = JSON.parse(e.data);
+        console.log(data);
         switch (data.type) {
             case 'connection':
                 this.localId = data.id;
@@ -112,15 +113,15 @@ export default {
             redirect: 'follow'
           };
 
-          fetch("https://whiteboard-uc-poc.herokuapp.com/getToken", requestOptions)
-            .then(response => response.text())
-            .then(result => res((JSON.parse(result)).token))
-            .catch(error => err(error));
-
-          // fetch("http://localhost:8080/getToken", requestOptions)
+          // fetch("https://whiteboard-uc-poc.herokuapp.com/getToken", requestOptions)
           //   .then(response => response.text())
           //   .then(result => res((JSON.parse(result)).token))
           //   .catch(error => err(error));
+
+          fetch("http://localhost:8080/getToken", requestOptions)
+            .then(response => response.text())
+            .then(result => res((JSON.parse(result)).token))
+            .catch(error => err(error));
             
             
         });

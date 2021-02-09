@@ -7,9 +7,14 @@ module.exports = {
               changeOrigin: true
             },
             '^/getToken': {
-              target: 'https://whiteboard-server1.herokuapp.com/',
+              target: 'https://whiteboard-server-poc.herokuapp.com/',
               changeOrigin: true
             },
+            // '^/getToken': {
+            //   target: 'http://localhost:8081/',
+            //   changeOrigin: true
+            // },
+
           },
         disableHostCheck: true
 
