@@ -104,6 +104,11 @@ export default {
         },
       getTokenFromServer : function(){
         return new Promise(function(res,err){
+
+          // res("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzMDc0NDU3MzUzMDU5Mjg2ODk3IiwiaWF0IjoxNjEyODgyMzM3fQ.40C2wnZal0IeIlMCx5GcYKFlFxk9q_Czrg_St2K9urU")
+          // err("some thing")
+
+
           var myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
 
@@ -113,20 +118,30 @@ export default {
             redirect: 'follow'
           };
 
-          fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
-            .then(response => response.text() )
-            .then(result => {console.log(JSON.parse(result).token);console.log(JSON.parse(result)); return res(JSON.parse(result).token)})
-            .catch(error => err(error));
-
-          // fetch("http://localhost:8081/getToken", requestOptions)
-          //   .then(response => {console.log(response.text()); return response.text() })
-          //   .then(result => {console.log(result); return res(result.token)})
-          //   .catch(error => err(error));
-
           // fetch("http://localhost:8082/getToken", requestOptions)
           //   .then(response => response.text() )
-          //   .then(result => {console.log(JSON.parse(result).token);console.log(JSON.parse(result)); return res(JSON.parse(result).token)})
+          //   .then(result => {console.log(result);console.log(JSON.parse(result).token);console.log(JSON.parse(result)); return res(JSON.parse(result).token)})
           //   .catch(error => err(error));
+          fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
+            .then(response => response.json() )
+            .then(result => {console.log(result);return res(result.token)})
+            .catch(error => err(error));
+
+          //   fetch("https://localhost:8082/getToken", requestOptions)
+          //   .then(response => response.text() )
+          //   .then(result => res(JSON.parse(result).token))
+          //   .catch(error => err(error));
+
+
+          // // fetch("http://localhost:8081/getToken", requestOptions)
+          // //   .then(response => {console.log(response.text()); return response.text() })
+          // //   .then(result => {console.log(result); return res(result.token)})
+          // //   .catch(error => err(error));
+
+          // // fetch("http://localhost:8082/getToken", requestOptions)
+          // //   .then(response => response.json())
+          // //   .then(result => {console.log("---------------"); console.log(result); return res(JSON.parse(result).token)})
+          // //   .catch(error => err(error));
             
             
         });
