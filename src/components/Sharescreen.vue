@@ -115,7 +115,6 @@ export default {
           var requestOptions = {
             method: 'GET',
             headers: myHeaders,
-            redirect: 'follow'
           };
 
           // fetch("http://localhost:8082/getToken", requestOptions)
