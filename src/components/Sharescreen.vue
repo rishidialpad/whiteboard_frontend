@@ -123,7 +123,7 @@ export default {
           //   .then(result => {console.log(result);console.log(JSON.parse(result).token);console.log(JSON.parse(result)); return res(JSON.parse(result).token)})
           //   .catch(error => err(error));
           fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
-            .then(response => response.json() )
+            .then(response => {console.log("fsdsfsfsf") ; console.log(response) ;return response.json()} )
             .then(result => {console.log(result);return res(result.token)})
             .catch(error => err(error));
 
