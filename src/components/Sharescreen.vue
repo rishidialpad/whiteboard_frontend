@@ -1,10 +1,11 @@
 <template>
     <div>
         <div class="frame">
+          <iframe v-if="whiteboardData.enable" class="miro-embedded-board" :src="whiteboardData.value" referrerpolicy="no-referrer-when-downgrade" frameborder="0" style="background: transparent; border: 1px solid #ccc;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
         </div>
         <!-- <button v-if="isWhiteboardOpen == false" v-on:click="openWhiteboard" ><i class="fas fa-desktop fa-3x"></i></button>
         <button v-else v-on:click="closeWhiteboard"><i class="fas fa-stop-circle"></i></button> -->
-        <b-dropdown v-if="isWhiteboardOpen == false" id="dropdown-offset" offset="25" text="Share Screen" class="m-2">
+        <b-dropdown v-if="whiteboardData.enable == false" id="dropdown-offset" offset="25" text="Share Screen" class="m-2">
           <b-dropdown-item v-on:click="openWhiteboard">Open Miro whiteboard</b-dropdown-item>
           <b-dropdown-item href="#" disabled>Share Desktop Screen</b-dropdown-item>
         </b-dropdown>
@@ -21,7 +22,11 @@ export default {
   data: function () {
     return {
         wsConnection : Object,
-        isWhiteboardOpen:false,
+        whiteboardData:{
+          type:"enable",
+          enable:false,
+          value:""
+        }
     }
   },
   mounted() {
@@ -40,24 +45,26 @@ export default {
                 break;
             case 'ids':
                 console.log(data);
-                this.peerIds = data.ids;
-                // connect();
-                break;
-            case 'signal':
-                // signal(data.id, data.data);
+            //     this.peerIds = data.ids;
+            //     // connect();
+            //     break;
+            // case 'signal':
+            //     // signal(data.id, data.data);
                 break;
             case 'whiteboard':
               console.log(data);
-              var insertFrame = document.querySelector('.frame')
+              // var insertFrame = document.querySelector('.frame')
 
-              if(data.enable == true){
-                insertFrame.innerHTML = data.value;
-                this.isWhiteboardOpen = true;
-              }
-              else{
-                insertFrame.innerHTML = "";
-                this.isWhiteboardOpen = false;
-              }
+              this.whiteboardData = data;
+
+              // if(data.enable == true){
+              //   insertFrame.innerHTML = data.value;
+              //   this.isWhiteboardOpen = true;
+              // }
+              // else{
+              //   insertFrame.innerHTML = "";
+              //   this.isWhiteboardOpen = false;
+              // }
               
             }
         };
@@ -73,15 +80,13 @@ export default {
             allowCreateAnonymousBoards : true,
             getToken : () => this.getTokenFromServer(),
             success: (data) => {
-            insertFrame.innerHTML = data.embedHtml;
+            // insertFrame.innerHTML = data.embedHtml;
             // resultsBox.innerHTML = JSON.stringify(data, null, 4)
             // resultsBox.style.display = "block"
-            this.isWhiteboardOpen = true;
-            this.wsConnection.send(JSON.stringify({
-                "type":"whiteboard",
-                "enable":true,
-                "value":data.embedHtml
-            }));
+            // this.isWhiteboardOpen = true;
+            this.whiteboardData.enable = true;
+            this.whiteboardData.value = data.accessLink;
+            this.wsConnection.send(JSON.stringify(this.whiteboardData));
             
           }
           
@@ -90,14 +95,11 @@ export default {
         },
         closeWhiteboard: function(){
           // do something
-          var insertFrame = document.querySelector('.frame')
-          insertFrame.innerHTML = "";
-          this.isWhiteboardOpen = false;
-            this.wsConnection.send(JSON.stringify({
-                "type":"whiteboard",
-                "enable":false,
-                "value":""
-            }));
+
+          this.whiteboardData.enable = false;
+          this.whiteboardData.value = "";
+          this.wsConnection.send(JSON.stringify(this.whiteboardData));
+          
         },
       getTokenFromServer : function(){
         return new Promise(function(res,err){
@@ -114,6 +116,11 @@ export default {
             .then(response => response.text())
             .then(result => res((JSON.parse(result)).token))
             .catch(error => err(error));
+
+          // fetch("http://localhost:8080/getToken", requestOptions)
+          //   .then(response => response.text())
+          //   .then(result => res((JSON.parse(result)).token))
+          //   .catch(error => err(error));
             
             
         });
