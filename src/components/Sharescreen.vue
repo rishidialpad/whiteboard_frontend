@@ -113,15 +113,15 @@ export default {
             redirect: 'follow'
           };
 
-          // fetch("https://whiteboard-uc-poc.herokuapp.com/getToken", requestOptions)
-          //   .then(response => response.text())
-          //   .then(result => res((JSON.parse(result)).token))
-          //   .catch(error => err(error));
-
-          fetch("http://localhost:8080/getToken", requestOptions)
+          fetch("https://whiteboard-server-poc.herokuapp.com/getToken", requestOptions)
             .then(response => response.text())
             .then(result => res((JSON.parse(result)).token))
             .catch(error => err(error));
+
+          // fetch("http://localhost:8080/getToken", requestOptions)
+          //   .then(response => response.text())
+          //   .then(result => res((JSON.parse(result)).token))
+          //   .catch(error => err(error));
             
             
         });
