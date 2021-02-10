@@ -121,21 +121,17 @@ export default {
           //   .then(response => response.text() )
           //   .then(result => {console.log(result);console.log(JSON.parse(result).token);console.log(JSON.parse(result)); return res(JSON.parse(result).token)})
           //   .catch(error => err(error));
-          fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
-            .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response) ;return response.json()} )
-            .then(result => {console.log(result);return res(result.token)})
-            .catch(error => err(error));
-
-          //   fetch("https://localhost:8082/getToken", requestOptions)
-          //   .then(response => response.text() )
-          //   .then(result => res(JSON.parse(result).token))
+          // fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
+          //   .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response) ;return response.json()} )
+          //   .then(result => {console.log(result);return res(result.token)})
           //   .catch(error => err(error));
 
+          
 
-          // // fetch("http://localhost:8081/getToken", requestOptions)
-          // //   .then(response => {console.log(response.text()); return response.text() })
-          // //   .then(result => {console.log(result); return res(result.token)})
-          // //   .catch(error => err(error));
+          fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
+             .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response); return "rishi";} )
+            // .then(result => {console.log(result);return res(result.token)})
+            // .catch(error =>  err(error));
 
           // // fetch("http://localhost:8082/getToken", requestOptions)
           // //   .then(response => response.json())
