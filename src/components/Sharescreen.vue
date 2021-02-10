@@ -128,10 +128,16 @@ export default {
 
           
 
-          fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
-             .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response); return "rishi";} )
-            // .then(result => {console.log(result);return res(result.token)})
-            // .catch(error =>  err(error));
+          fetch("https://whiteboard-server-poc.herokuapp.com/getToken", requestOptions)
+             .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response); return response.json();} )
+            .then(result => {console.log(result);return res(result.token)})
+            .catch(error =>  err(error));
+          
+          // fetch("http:localhost:8080/getToken", requestOptions)
+          //    .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response); return "rishi";} )
+          //   // .then(result => {console.log(result);return res(result.token)})
+          //   // .catch(error =>  err(error));
+
 
           // // fetch("http://localhost:8082/getToken", requestOptions)
           // //   .then(response => response.json())
