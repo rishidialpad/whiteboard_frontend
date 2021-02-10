@@ -46,48 +46,29 @@ export default {
                 break;
             case 'ids':
                 console.log(data);
-            //     this.peerIds = data.ids;
-            //     // connect();
-            //     break;
-            // case 'signal':
-            //     // signal(data.id, data.data);
+                
                 break;
             case 'whiteboard':
               console.log(data);
-              // var insertFrame = document.querySelector('.frame')
 
               this.whiteboardData = data;
-
-              // if(data.enable == true){
-              //   insertFrame.innerHTML = data.value;
-              //   this.isWhiteboardOpen = true;
-              // }
-              // else{
-              //   insertFrame.innerHTML = "";
-              //   this.isWhiteboardOpen = false;
-              // }
               
             }
         };
   },
   methods:{
       openWhiteboard: function(){
-          //this.getWhiteboardLink();
-          // var resultsBox = document.querySelector('.results')
-          var insertFrame = document.querySelector('.frame')
+        
           miroBoardsPicker.open({
             clientId: '3074457353059286897', // Replace it with your app ClientId
             action : "access-link",
             allowCreateAnonymousBoards : true,
             getToken : () => this.getTokenFromServer(),
             success: (data) => {
-            // insertFrame.innerHTML = data.embedHtml;
-            // resultsBox.innerHTML = JSON.stringify(data, null, 4)
-            // resultsBox.style.display = "block"
-            // this.isWhiteboardOpen = true;
-            this.whiteboardData.enable = true;
-            this.whiteboardData.value = data.accessLink;
-            this.wsConnection.send(JSON.stringify(this.whiteboardData));
+
+              this.whiteboardData.enable = true;
+              this.whiteboardData.value = data.accessLink;
+              this.wsConnection.send(JSON.stringify(this.whiteboardData));
             
           }
           
@@ -105,46 +86,20 @@ export default {
       getTokenFromServer : function(){
         return new Promise(function(res,err){
 
-          // res("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzMDc0NDU3MzUzMDU5Mjg2ODk3IiwiaWF0IjoxNjEyODgyMzM3fQ.40C2wnZal0IeIlMCx5GcYKFlFxk9q_Czrg_St2K9urU")
-          // err("some thing")
-
-
           var myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
+          myHeaders.append("Access-Control-Allow-Origin","*");
 
           var requestOptions = {
             method: 'GET',
             headers: myHeaders,
           };
-
-          // fetch("http://localhost:8082/getToken", requestOptions)
-          //   .then(response => response.text() )
-          //   .then(result => {console.log(result);console.log(JSON.parse(result).token);console.log(JSON.parse(result)); return res(JSON.parse(result).token)})
-          //   .catch(error => err(error));
-          // fetch("https://whiteboard-front-poc.herokuapp.com/getToken", requestOptions)
-          //   .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response) ;return response.json()} )
-          //   .then(result => {console.log(result);return res(result.token)})
-          //   .catch(error => err(error));
-
           
-
           fetch("https://whiteboard-server-poc.herokuapp.com/getToken", requestOptions)
              .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response); return response.json();} )
             .then(result => {console.log(result);return res(result.token)})
             .catch(error =>  err(error));
-          
-          // fetch("http:localhost:8080/getToken", requestOptions)
-          //    .then(response => {console.log("fsdsfsfsf") ; window.response = response; console.log(response); return "rishi";} )
-          //   // .then(result => {console.log(result);return res(result.token)})
-          //   // .catch(error =>  err(error));
 
-
-          // // fetch("http://localhost:8082/getToken", requestOptions)
-          // //   .then(response => response.json())
-          // //   .then(result => {console.log("---------------"); console.log(result); return res(JSON.parse(result).token)})
-          // //   .catch(error => err(error));
-            
-            
         });
       },
   }
