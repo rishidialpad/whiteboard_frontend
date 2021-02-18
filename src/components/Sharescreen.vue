@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="frame">
-          <iframe v-if="whiteboardData.enable" class="miro-embedded-board" :src="whiteboardData.value" referrerpolicy="no-referrer-when-downgrade" frameborder="0" style="background: transparent; border: 1px solid #ccc;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+          <iframe v-if="whiteboardData.enable" class="miro-embedded-board" :src="whiteboardData.value" referrerpolicy="no-referrer-when-downgrade" frameborder="0" style="background: transparent; border: 1px solid #ccc;" sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin"></iframe>
         </div>
         <!-- <button v-if="isWhiteboardOpen == false" v-on:click="openWhiteboard" ><i class="fas fa-desktop fa-3x"></i></button>
         <button v-else v-on:click="closeWhiteboard"><i class="fas fa-stop-circle"></i></button> -->
